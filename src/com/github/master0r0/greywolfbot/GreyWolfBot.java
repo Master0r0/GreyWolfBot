@@ -1,9 +1,9 @@
 package com.github.master0r0.greywolfbot;
 
 import com.github.master0r0.greycommands.GreyCommands;
-import com.github.master0r0.greywolfbot.Commands.LeaveCommand;
 import com.github.master0r0.greywolfbot.Commands.GameCommand;
 import com.github.master0r0.greywolfbot.Commands.HelpCommand;
+import com.github.master0r0.greywolfbot.Commands.LeaveCommand;
 import com.github.master0r0.greywolfbot.Listeners.CommandListener;
 import com.github.master0r0.greywolfbot.Listeners.ReadyListener;
 import org.slf4j.Logger;

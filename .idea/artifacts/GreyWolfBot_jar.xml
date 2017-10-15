@@ -4,6 +4,9 @@
     <root id="archive" name="GreyWolfBot.jar">
       <element id="module-output" name="GreyWolfBot" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/Discord4j-2.9.1-shaded.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/logback-access-1.2.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/logback-core-1.2.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/logback-classic-1.2.3.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
