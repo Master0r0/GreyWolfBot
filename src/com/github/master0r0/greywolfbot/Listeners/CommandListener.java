@@ -1,6 +1,7 @@
 package com.github.master0r0.greywolfbot.Listeners;
 
 import com.github.master0r0.greywolfbot.Commands.BaseCommand;
+import com.github.master0r0.greywolfbot.Commands.HelpCommand;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IRole;
@@ -43,6 +44,8 @@ public class CommandListener {
                     if(evt.getAuthor().getName().equals(superuser))
                         command.execute(evt);
                 }
+            }else if(cmd.equals("help")){
+                new HelpCommand().execute(evt,commands);
             }
         }
     }

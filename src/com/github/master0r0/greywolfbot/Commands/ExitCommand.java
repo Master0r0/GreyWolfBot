@@ -21,7 +21,7 @@ public class ExitCommand extends BaseCommand {
 
     @Override
     public String getHelp(){
-        return "";
+        return "Causes the Bot to shutdown";
     }
 
     @Override
