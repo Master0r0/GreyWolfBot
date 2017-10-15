@@ -1,6 +1,7 @@
 package com.github.master0r0.greywolfbot;
 
-import com.github.master0r0.greywolfbot.Commands.ExitCommand;
+import com.github.master0r0.greycommands.GreyCommands;
+import com.github.master0r0.greywolfbot.Commands.LeaveCommand;
 import com.github.master0r0.greywolfbot.Commands.GameCommand;
 import com.github.master0r0.greywolfbot.Commands.HelpCommand;
 import com.github.master0r0.greywolfbot.Listeners.CommandListener;
@@ -15,10 +16,15 @@ import sx.blah.discord.util.DiscordException;
 
 public class GreyWolfBot {
 
-    private static final Logger logger = LoggerFactory.getLogger("GreyWolfBot");
+    private static Logger logger = LoggerFactory.getLogger("GreyWolfBot");
     private static IDiscordClient client;
 
+
+    private static GreyWolfBot instance;
+
     public static void main(String[] args){
+        new GreyWolfBot();
+        boolean greyCommands = false;
         if(!(args.length >1)){
             StringBuilder failMsg = new StringBuilder().append("\nNo Arguments were provided\n")
                     .append("To start the bot a valid token must be provided\n")
@@ -28,14 +34,29 @@ public class GreyWolfBot {
         }else{
             client = createClient(args[0],true);
             EventDispatcher evtDispatcher = client.getDispatcher();
-            CommandListener commandListener = new CommandListener(args[1]);
-            commandListener.registerCommand(new HelpCommand());
-            commandListener.registerCommand(new ExitCommand());
-            commandListener.registerCommand(new GameCommand());
             evtDispatcher.registerListener(new ReadyListener());
-            evtDispatcher.registerListener(commandListener);
-
+            for(IModule module : client.getModuleLoader().getLoadedModules()){
+                if(module.getName()=="GreyCommands")
+                    greyCommands = true;
+            }
+            if(!greyCommands) {
+                CommandListener commandListener = new CommandListener(args[1]);
+                commandListener.registerCommand(new HelpCommand());
+                commandListener.registerCommand(new LeaveCommand());
+                commandListener.registerCommand(new GameCommand());
+                evtDispatcher.registerListener(commandListener);
+            }else{
+                GreyCommands.setSuperuser(args[1]);
+            }
         }
+    }
+
+    public GreyWolfBot(){
+        instance = this;
+    }
+
+    public static GreyWolfBot getInstance() {
+        return instance;
     }
 
     public static IDiscordClient createClient(String token, boolean login){

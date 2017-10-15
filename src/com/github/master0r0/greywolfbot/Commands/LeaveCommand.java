@@ -3,11 +3,11 @@ package com.github.master0r0.greywolfbot.Commands;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IGuild;
 
-public class ExitCommand extends BaseCommand {
+public class LeaveCommand extends BaseCommand {
 
     @Override
     public String getCommandName(){
-        return "exit";
+        return "leave";
     }
 
     @Override

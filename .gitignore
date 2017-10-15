@@ -3,3 +3,5 @@
 GreyWolfBot.iml
 lib/
 /out/
+/src/META-INF/
+/modules/
