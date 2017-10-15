@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="GreyWolfBotCommandsModule">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/GreyWolfBotCommandsModule.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/GreyWolfBotCommandsModule.jar!/" />
+    </SOURCES>
+  </library>
+</component>
