@@ -28,24 +28,35 @@ public class CommandListener {
 
     @EventSubscriber
     public void onMessageReceived(MessageReceivedEvent evt){
+        boolean done = false;
         if(evt.getMessage().getContent().startsWith("!")){
-            String cmd = evt.getMessage().getContent().substring(1);
+            String[] splitString = evt.getMessage().getContent().split(" ");
+            String cmd = evt.getMessage().getContent().substring(1,splitString[0].length());
             if(commands.containsKey(cmd)){
                 BaseCommand command = commands.get(cmd);
                 if(command.getRequiredPermission()!=100){
                     for(IRole role : evt.getAuthor().getRolesForGuild(evt.getGuild())){
                         for(Permissions perm : role.getPermissions()){
                             if(perm.hasPermission(command.getRequiredPermission())){
-                                command.execute(evt);
+                                if(cmd.equals("help")) {
+                                    ((HelpCommand) command).execute(evt, commands, superuser);
+                                    done = true;
+                                    break;
+                                } else {
+                                    command.execute(evt);
+                                    done = true;
+                                    break;
+                                }
                             }
                         }
+                        if(done)
+                            break;
                     }
                 }else{
-                    if(evt.getAuthor().getName().equals(superuser))
+                    if(evt.getAuthor().getName().equals(superuser)) {
                         command.execute(evt);
+                    }
                 }
-            }else if(cmd.equals("help")){
-                new HelpCommand().execute(evt,commands);
             }
         }
     }
