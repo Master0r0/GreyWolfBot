@@ -11,5 +11,8 @@ java -jar GreyWolfBot.jar Token SuperUser
 ---
 # Creating a bot account
 You create your bots account over at https://discordapp.com/developers/applications/me
+
 To invite the bot to your server copy the clientID from the bots page and use it in this url
-```https://discordapp.com/oauth2/authorize?client_id=YOUR_CLIENT_ID_HERE&scope=bot&permissions=66186303```
+```
+https://discordapp.com/oauth2/authorize?client_id=YOUR_CLIENT_ID_HERE&scope=bot&permissions=66186303
+```
