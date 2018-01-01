@@ -9,7 +9,7 @@ public class ReadyListener {
     @EventSubscriber
     public void onReadyEvent(ReadyEvent evt){
         for(IGuild guild : evt.getClient().getGuilds()){
-            guild.getDefaultChannel().sendMessage("I'm ALIVE");
+
         }
     }
 

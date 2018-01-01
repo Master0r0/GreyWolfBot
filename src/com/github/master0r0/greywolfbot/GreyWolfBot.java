@@ -6,18 +6,27 @@ import com.github.master0r0.greywolfbot.Commands.HelpCommand;
 import com.github.master0r0.greywolfbot.Commands.LeaveCommand;
 import com.github.master0r0.greywolfbot.Listeners.CommandListener;
 import com.github.master0r0.greywolfbot.Listeners.ReadyListener;
+import com.github.master0r0.greywolfbot.Util.Config;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.EventDispatcher;
+import sx.blah.discord.handle.obj.IChannel;
+import sx.blah.discord.handle.obj.IGuild;
 import sx.blah.discord.modules.IModule;
 import sx.blah.discord.util.DiscordException;
+
+import java.io.File;
 
 public class GreyWolfBot {
 
     private static Logger logger = LoggerFactory.getLogger("GreyWolfBot");
     private static IDiscordClient client;
+    private static boolean kill = false;
+
+    public static String botOwner = "";
 
 
     private static GreyWolfBot instance;
@@ -25,29 +34,33 @@ public class GreyWolfBot {
     public static void main(String[] args){
         new GreyWolfBot();
         boolean greyCommands = false;
-        if(!(args.length >1)){
-            StringBuilder failMsg = new StringBuilder().append("\nNo Arguments were provided\n")
-                    .append("To start the bot a valid token must be provided\n")
-                    .append("Also the username of the Super Admin for the bot should be provided")
-                    .append("Example Command: GreyWolfBot.jar 123456789abcdefghijklmnopqrstuvwxyz master0r0");
-            logger.error(failMsg.toString());
-        }else{
-            client = createClient(args[0],true);
+        String jarPath = GreyWolfBot.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        jarPath = jarPath.substring(1,jarPath.lastIndexOf("/") );
+        File configDir = new File(jarPath+"/config");
+        if(!configDir.isDirectory()) {
+            if (!configDir.mkdir())
+                logger.error("Failed to make config directory");
+        }
+        JSONObject config = Config.load(configDir.getPath());
+        botOwner = config.getString("Bot Owner");
+        if (!kill) {
+            client = createClient(config.getString("Bot Token"), true);
             EventDispatcher evtDispatcher = client.getDispatcher();
             evtDispatcher.registerListener(new ReadyListener());
-            for(IModule module : client.getModuleLoader().getLoadedModules()){
-                if(module.getName()=="GreyCommands")
+            for (IModule module : client.getModuleLoader().getLoadedModules()) {
+                if (module.getName() == "GreyCommands")
                     greyCommands = true;
             }
-            if(!greyCommands) {
-                CommandListener commandListener = new CommandListener(args[1]);
+            if (!greyCommands) {
+                CommandListener commandListener = new CommandListener(botOwner);
                 commandListener.registerCommand(new HelpCommand());
                 commandListener.registerCommand(new LeaveCommand());
                 commandListener.registerCommand(new GameCommand());
                 evtDispatcher.registerListener(commandListener);
-            }else{
-                GreyCommands.setSuperuser(args[1]);
+            } else {
+                GreyCommands.setSuperuser(botOwner);
             }
+            // TODO: MAKE PERMISSION MODULE - WITH LOADING FROM FILE AND SUCH
         }
     }
 
@@ -75,6 +88,20 @@ public class GreyWolfBot {
             return null;
         }
 
+    }
+
+    public static void createWebhooks(IDiscordClient client){
+        for(IGuild guild : client.getGuilds()){
+            for(IChannel channel : guild.getChannels()){
+                channel.createWebhook(client.getApplicationName()+":"+channel.getName(),client.getApplicationIconURL());
+            }
+        }
+    }
+
+    public static void shutdown(){
+        if(client!=null)
+            client.logout();
+        kill = true;
     }
 
     public static Logger getLogger(){
