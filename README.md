@@ -4,10 +4,9 @@ GreyWolfBot is a basic Discord bot with which I am creating modules for.
 # Run the bot
 To run the bot use this command in a terminal window or script
 ```
-java -jar GreyWolfBot.jar Token SuperUser
+java -jar GreyWolfBot.jar
 ```
-* Token is the token for your discord bot.
-* SuperUser is the username of you or someone you wish to have total control without worrying about permissions
+* A config file will be generated on first boot for your token and other data
 ---
 # Creating a bot account
 You create your bots account over at https://discordapp.com/developers/applications/me
