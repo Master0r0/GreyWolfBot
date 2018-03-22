@@ -9,7 +9,7 @@ pipeline {
     }
     stage('Adjust Files') {
       steps {
-        archiveArtifacts(artifacts: './libs/**', allowEmptyArchive: true)
+        archiveArtifacts(artifacts: 'build/libs/**', allowEmptyArchive: true)
       }
     }
   }
