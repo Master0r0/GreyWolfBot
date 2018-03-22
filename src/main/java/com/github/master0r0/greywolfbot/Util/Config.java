@@ -47,10 +47,15 @@ public class Config {
     }
 
     private static JSONObject writeDefault(){
+        JSONObject radioObj = new JSONObject();
+        radioObj.put("IP","0.0.0.0");
+        radioObj.put("Port","0000");
+        radioObj.put("Name","Test Radio");
+        radioObj.put("Icon","URL.GOES.HERE");
         JSONObject defaultObj = new JSONObject();
-        defaultObj.put("Bot Name","GreyWolfBot");
+        defaultObj.put("RadioStream",radioObj);
         defaultObj.put("Bot Token","123456789abcdefghijklmnopqrstuvwxyz");
-        defaultObj.put("Bot Owner","Owners Username");
+        defaultObj.put("Admin Role ID",0);
         return defaultObj;
     }
 

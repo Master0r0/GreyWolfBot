@@ -3,3 +3,7 @@ lib/
 /out/
 /src/META-INF/
 /modules/
+/build/
+/.gradle/
+/.idea/
+/GreyWolfBot.iml

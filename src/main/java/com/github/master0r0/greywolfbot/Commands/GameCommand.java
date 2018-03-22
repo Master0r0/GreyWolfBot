@@ -1,17 +1,17 @@
 package com.github.master0r0.greywolfbot.Commands;
 
+import com.github.master0r0.greywolfbot.Registry.BaseCommand;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
-import sx.blah.discord.handle.obj.IGuild;
 
 public class GameCommand extends BaseCommand {
 
     @Override
-    public String getCommandName(){
+    public String getName(){
         return "game";
     }
 
     @Override
-    public boolean execute(MessageReceivedEvent evt){
+    public boolean execute(MessageReceivedEvent evt, String[] args){
         StringBuilder out = new StringBuilder();
         for(int i = 1;i<evt.getMessage().getContent().split(" ").length;i++){
             if(evt.getMessage().getContent().split(" ")[1].equals("clear")) {
@@ -30,7 +30,7 @@ public class GameCommand extends BaseCommand {
     }
 
     @Override
-    public int getRequiredPermission(){
-        return 100;
+    public float getRequiredPermission(){
+        return -1f;
     }
 }

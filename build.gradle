@@ -1,0 +1,47 @@
+buildscript{
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath("com.github.jengelman.gradle.plugins:shadow:2.0.2")
+    }
+}
+apply plugin: "java"
+apply plugin: "application"
+apply plugin: "com.github.johnrengelman.shadow"
+
+group = "com.github.master0r0"
+mainClassName = "com.github.master0r0.greywolfbot.GreyWolfBot"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
+dependencies {
+    compile("com.github.austinv11:Discord4j:2.9.3")
+    compile("ch.qos.logback:logback-classic:1.2.3")
+}
+
+jar {
+    baseName = "GreyWolfBot"
+    version = "1.0"
+    manifest {
+        attributes("Implementation-Title": baseName,
+                    "Implementation-Version": version,
+                    "Main-Class": mainClassName,
+                    "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+                    )
+    }
+}
+
+shadowJar {
+   baseName = "GreyWolfBot.Shadow"
+   version = "1.0"
+}
