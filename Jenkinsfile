@@ -7,9 +7,18 @@ pipeline {
         sh './gradlew assemble'
       }
     }
-    stage('Adjust Files') {
-      steps {
-        archiveArtifacts(artifacts: 'build/libs/**', allowEmptyArchive: true)
+    stage('Create') {
+      parallel {
+        stage('Archive Artifacts') {
+          steps {
+            archiveArtifacts(artifacts: 'build/libs/**', allowEmptyArchive: true)
+          }
+        }
+        stage('Create Changelog') {
+          steps {
+            junit(testResults: 'build/test-results/**', allowEmptyResults: true)
+          }
+        }
       }
     }
   }
