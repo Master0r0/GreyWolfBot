@@ -1,5 +1,10 @@
 package com.github.master0r0.greywolfbot.Util;
 
+/*
+    Credits: godlytalias
+    Link: https://github.com/godlytalias/Android/blob/master/workspace/RadioAVIV/src/gta/radio/aviv/IcyStreamMeta.java
+ */
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;

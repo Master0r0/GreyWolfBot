@@ -30,8 +30,8 @@ public class RadioStream {
             public void run() {
                 try {
                     streamMeta = new IcyStreamMeta(new URL(radioConfig.getString("IP") + ":" + radioConfig.getString("Port")));
-                    String artist = streamMeta.getArtist().isEmpty() ? "Doesn't Exist" : streamMeta.getArtist();
-                    String title = streamMeta.getTitle().isEmpty() ? "" : streamMeta.getTitle();
+                    String artist = streamMeta.getArtist().isEmpty() ? "Missing" : streamMeta.getArtist();
+                    String title = streamMeta.getTitle().isEmpty() ? "Missing" : streamMeta.getTitle();
                     emit(client,title,artist);
                 } catch (IOException e) {
                     GreyWolfBot.getLogger().warn("Unable to Connect to Radio Stream. Reason: " + e.getMessage());
