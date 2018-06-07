@@ -1,5 +1,6 @@
 package com.github.master0r0.greywolfbot.Registry;
 
+import com.github.master0r0.greywolfbot.API.IBaseCommand;
 import com.github.master0r0.greywolfbot.GreyWolfBot;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 
@@ -7,7 +8,7 @@ public class CommandExecutor {
 
     public static boolean execute(MessageReceivedEvent evt, String cmd, String[] args) {
         if (GreyWolfBot.getCommandRegistry().getCommands().containsKey(cmd.toLowerCase())) {
-            BaseCommand command = GreyWolfBot.getCommandRegistry().getCommands().get(cmd.toLowerCase());
+            IBaseCommand command = GreyWolfBot.getCommandRegistry().getCommands().get(cmd.toLowerCase());
             if (command.guildOnly()) {
                 if (evt.getGuild() != null)
                     runGuildOnly(evt, command, args);
@@ -19,7 +20,7 @@ public class CommandExecutor {
         } else if (GreyWolfBot.getCommandRegistry().getAlias().containsKey(cmd.toLowerCase())) {
             String alias = GreyWolfBot.getCommandRegistry().getAlias().get(cmd.toLowerCase());
             if (GreyWolfBot.getCommandRegistry().getCommands().containsKey(alias)) {
-                BaseCommand command = GreyWolfBot.getCommandRegistry().getCommands().get(alias);
+                IBaseCommand command = GreyWolfBot.getCommandRegistry().getCommands().get(alias);
                 if (command.guildOnly()) {
                     if (evt.getGuild() != null)
                         runGuildOnly(evt, command, args);
@@ -33,7 +34,7 @@ public class CommandExecutor {
         return false;
     }
 
-    private static boolean runGuildOnly(MessageReceivedEvent evt, BaseCommand command, String[] args) {
+    private static boolean runGuildOnly(MessageReceivedEvent evt, IBaseCommand command, String[] args) {
         if (PermissionsManager.hasPermission(evt.getAuthor(), evt.getGuild(), command)) {
             if (command.execute(evt, args))
                 return true;
@@ -44,7 +45,7 @@ public class CommandExecutor {
         return false;
     }
 
-    private static boolean runGlobal(MessageReceivedEvent evt, BaseCommand command, String[] args) {
+    private static boolean runGlobal(MessageReceivedEvent evt, IBaseCommand command, String[] args) {
         if (PermissionsManager.hasPermission(evt.getAuthor(), evt.getGuild(), command)) {
             if (command.execute(evt, args))
                 return true;

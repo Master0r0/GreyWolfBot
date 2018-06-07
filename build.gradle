@@ -30,7 +30,7 @@ dependencies {
 }
 
 jar {
-    baseName = "GreyWolfBot"
+    baseName = "GreyWolfBot.Stripped"
     version = "1.0"
     manifest {
         attributes("Implementation-Title": baseName,
@@ -42,6 +42,6 @@ jar {
 }
 
 shadowJar {
-   baseName = "GreyWolfBot.Shadow"
+   baseName = "GreyWolfBot"
    version = "1.0"
 }

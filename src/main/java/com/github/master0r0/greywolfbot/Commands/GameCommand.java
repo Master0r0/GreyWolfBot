@@ -1,9 +1,9 @@
 package com.github.master0r0.greywolfbot.Commands;
 
-import com.github.master0r0.greywolfbot.Registry.BaseCommand;
+import com.github.master0r0.greywolfbot.API.IBaseCommand;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 
-public class GameCommand extends BaseCommand {
+public class GameCommand implements IBaseCommand {
 
     @Override
     public String getName(){
@@ -27,6 +27,11 @@ public class GameCommand extends BaseCommand {
     @Override
     public String getHelp(){
         return "Sets the playing text for the bot";
+    }
+
+    @Override
+    public boolean guildOnly() {
+        return false;
     }
 
     @Override

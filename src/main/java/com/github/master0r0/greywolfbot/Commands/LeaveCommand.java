@@ -1,9 +1,9 @@
 package com.github.master0r0.greywolfbot.Commands;
 
-import com.github.master0r0.greywolfbot.Registry.BaseCommand;
+import com.github.master0r0.greywolfbot.API.IBaseCommand;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 
-public class LeaveCommand extends BaseCommand {
+public class LeaveCommand implements IBaseCommand {
 
     @Override
     public String getName(){

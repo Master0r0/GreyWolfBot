@@ -38,6 +38,8 @@ public class IcyStreamMeta {
 
         if (!data.containsKey("StreamTitle"))
             return "";
+        else if(data.get("StreamTitle").equals(""))
+            return "";
 
         String streamTitle = data.get("StreamTitle");
         if(streamTitle.indexOf("-")>0) {
@@ -57,6 +59,8 @@ public class IcyStreamMeta {
         Map<String, String> data = getMetadata();
 
         if (!data.containsKey("StreamTitle"))
+            return "";
+        else if(data.get("StreamTitle").equals(""))
             return "";
 
         String streamTitle = data.get("StreamTitle");

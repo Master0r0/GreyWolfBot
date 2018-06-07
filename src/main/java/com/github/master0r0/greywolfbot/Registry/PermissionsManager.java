@@ -1,5 +1,6 @@
 package com.github.master0r0.greywolfbot.Registry;
 
+import com.github.master0r0.greywolfbot.API.IBaseCommand;
 import com.github.master0r0.greywolfbot.GreyWolfBot;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.obj.IGuild;
@@ -18,7 +19,7 @@ public class PermissionsManager {
         this.client = client;
     }
 
-    public static boolean hasPermission(IUser user, IGuild server, BaseCommand command){
+    public static boolean hasPermission(IUser user, IGuild server, IBaseCommand command){
         if(server!=null){
             if(user.getRolesForGuild(server).contains(permissionMap.get(command.getRequiredPermission())))
                 return true;
